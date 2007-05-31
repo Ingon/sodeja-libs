@@ -11,11 +11,6 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 	private Class<T> clazz;
 	private SessionFactory sessionFactory;
 	
-	public GenericDaoImpl(Class<T> clazz, SessionFactory sessionFactory) {
-		this.clazz = clazz;
-		this.sessionFactory = sessionFactory;
-	}
-	
 	@Override
 	public void create(T object) {
 		getSession().save(object);
@@ -45,5 +40,13 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 	
 	private Session getSession() {
 		return sessionFactory.getCurrentSession();
+	}
+
+	protected void setClazz(Class<T> clazz) {
+		this.clazz = clazz;
+	}
+
+	protected void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }
