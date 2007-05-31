@@ -42,11 +42,16 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 		return sessionFactory.getCurrentSession();
 	}
 
-	protected void setClazz(Class<T> clazz) {
-		this.clazz = clazz;
+	@SuppressWarnings("unchecked")
+	public void setPersistentClass(String persistentClass) {
+		try {
+			this.clazz = (Class<T>) Class.forName(persistentClass);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
-	protected void setSessionFactory(SessionFactory sessionFactory) {
+	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 }
