@@ -38,7 +38,7 @@ public class GenericDaoImpl<T, ID extends Serializable> implements GenericDao<T,
 		getSession().delete(object);
 	}
 	
-	private Session getSession() {
+	protected Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
 
